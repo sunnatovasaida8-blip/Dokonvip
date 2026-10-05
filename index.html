@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZYNEX Store - Botlar Do'koni</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root {
+            --bg-color: var(--tg-theme-bg-color, #0f172a);
+            --text-color: var(--tg-theme-text-color, #ffffff);
+            --button-color: var(--tg-theme-button-color, #3b82f6);
+            --button-text-color: var(--tg-theme-button-text-color, #ffffff);
+            --card-bg: var(--tg-theme-secondary-bg-color, #1e293b);
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        /* Asosiy boshlang'ich ekran (Do'konga kirish) */
+        #welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 80vh;
+            text-align: center;
+        }
+        .logo-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+        h1 { font-size: 24px; margin-bottom: 8px; }
+        p { font-size: 14px; color: #94a3b8; margin-bottom: 24px; }
+        
+        .btn-main {
+            background-color: var(--button-color);
+            color: var(--button-text-color);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            width: 100%;
+            max-width: 280px;
+        }
+
+        /* Do'kon sahifasi */
+        #shop-screen {
+            display: none;
+            width: 100%;
+            max-width: 400px;
+            padding-bottom: 40px;
+        }
+        .header-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .product-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .product-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+        .product-desc {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 12px;
+        }
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .product-price {
+            font-size: 15px;
+            color: #22c55e;
+            font-weight: bold;
+        }
+        .btn-buy {
+            background-color: #22c55e;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Modal oynalar (To'lov va Muvaffaqiyat) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 100;
+        }
+        .modal-content {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 340px;
+            text-align: center;
+        }
+        .card-number {
+            background: #0f172a;
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 16px;
+            color: #38bdf8;
+            margin: 12px 0;
+            letter-spacing: 1px;
+        }
+        .btn-close {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            margin-top: 12px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .btn-confirm {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+        }
+        .link-box {
+            background: #0f172a;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 12px 0;
+            word-break: break-all;
+            color: #22c55e;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Boshlang'ich ekran: Do'konga kirish -->
+    <div id="welcome-screen">
+        <div class="logo-icon">🤖</div>
+        <h1>Apple of Fortune Botlar</h1>
+        <p>Eng yaxshi signal va dastur botlarini xarid qiling!</p>
+        <button class="btn-main" onclick="openShop()">Do'konga Kirish</button>
+    </div>
+
+    <!-- 2. Asosiy do'kon sahifasi -->
+    <div id="shop-screen">
+        <div class="header-title">🛍️ Mavjud Botlar</div>
+
+        <!-- 1-Bot -->
+        <div class="product-card">
+            <div class="product-title">⚡ @BE127VIPBOT</div>
+            <div class="product-desc">Apple of Fortune va boshqa o'yinlar uchun maxsus VIP signal boti.</div>
+            <div class="product-footer">
+                <span class="product-price">25,000 so'm</span>
+                <button class="btn-buy" onclick="buyProduct('@BE127VIPBOT', 'https://t.me/BE127VIPBOT')">Sotib olish</button>
+            </div>
+        </div>
+
+        <!-- 2-Bot -->
+        <div class="product-card">
+            <div class="product-title">🎯 @Apple_BE127_Signal_bot</div>
+            <div class="product-desc">Aniq bashorat va koeffitsientlarni ko'rsatuvchi signal boti.</div>
+            <div class="product-footer">
+                <span class="product-price">25,000 so'm</span>
+                <button class="btn-buy" onclick="buyProduct('@Apple_BE127_Signal_bot', 'https://t.me/Apple_BE127_Signal_bot')">Sotib olish</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- To'lov oynasi (Modal) -->
+    <div id="payment-modal" class="modal">
+        <div class="modal-content">
+            <h3>💳 To'lov qilish</h3>
+            <p style="font-size: 13px; margin: 8px 0;">Quyidagi karta raqamiga <b style="color: #22c55e;">25,000 so'm</b> o'tkazing:</p>
+            <div class="card-number" id="card-num">8802801263275391</div>
+            <button class="btn-confirm" onclick="showSuccess()">To'lov qildim (Chekni yuborish)</button>
+            <button class="btn-close" onclick="closeModal('payment-modal')">Bekor qilish</button>
+        </div>
+    </div>
+
+    <!-- Muvaffaqiyatli xarid / Bot havolasi oynasi -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <h3>🎉 To'lov tasdiqlandi!</h3>
+            <p style="font-size: 13px;">Siz sotib olgan bot havolasi:</p>
+            <div class="link-box" id="bot-link-display">https://t.me/...</div>
+            <button class="btn-main" style="width:100%; font-size: 14px; padding: 10px;" onclick="copyLink()">📋 Havolani Nusxalash</button>
+            <button class="btn-close" onclick="closeModal('success-modal')" style="background:#334155;">Yopish</button>
+        </div>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+
+        let selectedBotLink = "";
+
+        function openShop() {
+            document.getElementById('welcome-screen').style.display = 'none';
+            document.getElementById('shop-screen').style.display = 'block';
+        }
+
+        function buyProduct(botName, botLink) {
+            selectedBotLink = botLink;
+            document.getElementById('payment-modal').style.display = 'flex';
+        }
+
+        function showSuccess() {
+            document.getElementById('payment-modal').style.display = 'none';
+            document.getElementById('bot-link-display').innerText = selectedBotLink;
+            document.getElementById('success-modal').style.display = 'flex';
+            
+            // Telegram botga ham xabar yuborish (ixtiyoriy)
+            try {
+                tg.sendData(JSON.stringify({ action: "buy", bot: selectedBotLink }));
+            } catch(e) {}
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(selectedBotLink).then(() => {
+                alert("Bot havolasi nusxalandi!");
+            });
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+    </script>
+</body>
+</html>
