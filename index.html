@@ -24,8 +24,6 @@
             align-items: center;
             min-height: 100vh;
         }
-        
-        /* Asosiy boshlang'ich ekran (Do'konga kirish) */
         #welcome-screen {
             display: flex;
             flex-direction: column;
@@ -34,13 +32,9 @@
             height: 80vh;
             text-align: center;
         }
-        .logo-icon {
-            font-size: 64px;
-            margin-bottom: 16px;
-        }
+        .logo-icon { font-size: 64px; margin-bottom: 16px; }
         h1 { font-size: 24px; margin-bottom: 8px; }
         p { font-size: 14px; color: #94a3b8; margin-bottom: 24px; }
-        
         .btn-main {
             background-color: var(--button-color);
             color: var(--button-text-color);
@@ -50,24 +44,16 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
             width: 100%;
             max-width: 280px;
         }
-
-        /* Do'kon sahifasi */
         #shop-screen {
             display: none;
             width: 100%;
             max-width: 400px;
             padding-bottom: 40px;
         }
-        .header-title {
-            text-align: center;
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
+        .header-title { text-align: center; font-size: 20px; font-weight: bold; margin-bottom: 20px; }
         .product-card {
             background-color: var(--card-bg);
             border-radius: 16px;
@@ -75,26 +61,10 @@
             margin-bottom: 16px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        .product-title {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 6px;
-        }
-        .product-desc {
-            font-size: 13px;
-            color: #94a3b8;
-            margin-bottom: 12px;
-        }
-        .product-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .product-price {
-            font-size: 15px;
-            color: #22c55e;
-            font-weight: bold;
-        }
+        .product-title { font-size: 16px; font-weight: bold; margin-bottom: 6px; }
+        .product-desc { font-size: 13px; color: #94a3b8; margin-bottom: 12px; }
+        .product-footer { display: flex; justify-content: space-between; align-items: center; }
+        .product-price { font-size: 15px; color: #22c55e; font-weight: bold; }
         .btn-buy {
             background-color: #22c55e;
             color: white;
@@ -105,13 +75,11 @@
             font-weight: bold;
             cursor: pointer;
         }
-
-        /* Modal oynalar (To'lov va Muvaffaqiyat) */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.8);
             justify-content: center;
             align-items: center;
             padding: 20px;
@@ -132,8 +100,14 @@
             font-family: monospace;
             font-size: 16px;
             color: #38bdf8;
-            margin: 12px 0;
+            margin: 10px 0;
             letter-spacing: 1px;
+        }
+        .timer {
+            font-size: 18px;
+            color: #ef4444;
+            font-weight: bold;
+            margin: 10px 0;
         }
         .btn-close {
             background: #ef4444;
@@ -141,12 +115,12 @@
             border: none;
             padding: 8px 16px;
             border-radius: 8px;
-            margin-top: 12px;
+            margin-top: 10px;
             cursor: pointer;
             width: 100%;
         }
         .btn-confirm {
-            background: #3b82f6;
+            background: #22c55e;
             color: white;
             border: none;
             padding: 10px;
@@ -160,16 +134,17 @@
             background: #0f172a;
             padding: 12px;
             border-radius: 8px;
-            margin: 12px 0;
+            margin: 10px 0;
             word-break: break-all;
             color: #22c55e;
             font-weight: bold;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
 
-    <!-- 1. Boshlang'ich ekran: Do'konga kirish -->
+    <!-- 1. Kirish ekrani -->
     <div id="welcome-screen">
         <div class="logo-icon">🤖</div>
         <h1>Apple of Fortune Botlar</h1>
@@ -177,11 +152,10 @@
         <button class="btn-main" onclick="openShop()">Do'konga Kirish</button>
     </div>
 
-    <!-- 2. Asosiy do'kon sahifasi -->
+    <!-- 2. Do'kon oynasi -->
     <div id="shop-screen">
         <div class="header-title">🛍️ Mavjud Botlar</div>
 
-        <!-- 1-Bot -->
         <div class="product-card">
             <div class="product-title">⚡ @BE127VIPBOT</div>
             <div class="product-desc">Apple of Fortune va boshqa o'yinlar uchun maxsus VIP signal boti.</div>
@@ -191,7 +165,6 @@
             </div>
         </div>
 
-        <!-- 2-Bot -->
         <div class="product-card">
             <div class="product-title">🎯 @Apple_BE127_Signal_bot</div>
             <div class="product-desc">Aniq bashorat va koeffitsientlarni ko'rsatuvchi signal boti.</div>
@@ -202,25 +175,39 @@
         </div>
     </div>
 
-    <!-- To'lov oynasi (Modal) -->
+    <!-- 3. To'lov va 50 soniya taymer oynasi -->
     <div id="payment-modal" class="modal">
         <div class="modal-content">
             <h3>💳 To'lov qilish</h3>
-            <p style="font-size: 13px; margin: 8px 0;">Quyidagi karta raqamiga <b style="color: #22c55e;">25,000 so'm</b> o'tkazing:</p>
-            <div class="card-number" id="card-num">8802801263275391</div>
-            <button class="btn-confirm" onclick="showSuccess()">To'lov qildim (Chekni yuborish)</button>
+            <p style="font-size: 13px; margin: 6px 0;">Karta raqamiga <b style="color: #22c55e;">25,000 so'm</b> o'tkazing:</p>
+            <div class="card-number">8802801263275391</div>
+            <div class="timer" id="timer-display">00:50</div>
+            <p style="font-size: 12px; color: #94a3b8;">Belgilangan vaqt ichida to'lov qilib, chekni adminga yuboring.</p>
+            <button class="btn-confirm" onclick="submitCheck()">To'lov qildim (Chekni yuborish)</button>
             <button class="btn-close" onclick="closeModal('payment-modal')">Bekor qilish</button>
         </div>
     </div>
 
-    <!-- Muvaffaqiyatli xarid / Bot havolasi oynasi -->
+    <!-- 4. Tekshiruv oynasi -->
+    <div id="checking-modal" class="modal">
+        <div class="modal-content">
+            <h3>⏳ Tekshirilmoqda</h3>
+            <p style="font-size: 14px; margin: 15px 0;">Chekingiz adminga yuborildi. Pul tushgani tekshirilmoqda, iltimos kuting...</p>
+            <a id="admin-chat-link" href="https://t.me/VIPEGABE127" target="_blank" style="display: block; background: #3b82f6; color: white; padding: 10px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-bottom: 10px;">💬 Admin bilan bog'lanish (@VIPEGABE127)</a>
+            <button class="btn-close" onclick="simulateAdminApproval()" style="background: #22c55e;">✅ Admin tasdiqlash (Test uchun)</button>
+        </div>
+    </div>
+
+    <!-- 5. Muvaffaqiyatli xarid va 2 daqiqa taymer oynasi -->
     <div id="success-modal" class="modal">
         <div class="modal-content">
             <h3>🎉 To'lov tasdiqlandi!</h3>
-            <p style="font-size: 13px;">Siz sotib olgan bot havolasi:</p>
-            <div class="link-box" id="bot-link-display">https://t.me/...</div>
-            <button class="btn-main" style="width:100%; font-size: 14px; padding: 10px;" onclick="copyLink()">📋 Havolani Nusxalash</button>
-            <button class="btn-close" onclick="closeModal('success-modal')" style="background:#334155;">Yopish</button>
+            <p style="font-size: 13px;">Sotib olgan bot havolangiz:</p>
+            <div class="link-box" id="bot-link-text">https://t.me/...</div>
+            <div class="timer" id="success-timer" style="font-size: 15px; color: #38bdf8;">Qolgan vaqt: 02:00</div>
+            <button class="btn-main" style="width:100%; font-size: 14px; padding: 10px; margin-top: 5px;" onclick="copyBotLink()">📋 Havolani Nusxalash</button>
+            <p style="font-size: 12px; color: #22c55e; margin-top: 15px; font-weight: bold;">Xaridingiz uchun rahmat, biz bilan qoling! ❤️</p>
+            <button class="btn-close" onclick="closeModal('success-modal')" style="background:#334155; margin-top:10px;">Yopish</button>
         </div>
     </div>
 
@@ -229,6 +216,8 @@
         tg.expand();
 
         let selectedBotLink = "";
+        let paymentTimer = null;
+        let successTimer = null;
 
         function openShop() {
             document.getElementById('welcome-screen').style.display = 'none';
@@ -238,27 +227,74 @@
         function buyProduct(botName, botLink) {
             selectedBotLink = botLink;
             document.getElementById('payment-modal').style.display = 'flex';
+            startPaymentTimer(50);
         }
 
-        function showSuccess() {
+        function startPaymentTimer(duration) {
+            let timer = duration, seconds;
+            const display = document.getElementById('timer-display');
+            clearInterval(paymentTimer);
+            paymentTimer = setInterval(function () {
+                seconds = parseInt(timer % 60, 10);
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                display.innerText = "00:" + seconds;
+                if (--timer < 0) {
+                    clearInterval(paymentTimer);
+                    alert("Vaqt tugadi! Iltimos qaytadan urinib ko'ring.");
+                    closeModal('payment-modal');
+                }
+            }, 1000);
+        }
+
+        function submitCheck() {
+            clearInterval(paymentTimer);
             document.getElementById('payment-modal').style.display = 'none';
-            document.getElementById('bot-link-display').innerText = selectedBotLink;
-            document.getElementById('success-modal').style.display = 'flex';
+            document.getElementById('checking-modal').style.display = 'flex';
             
-            // Telegram botga ham xabar yuborish (ixtiyoriy)
-            try {
-                tg.sendData(JSON.stringify({ action: "buy", bot: selectedBotLink }));
-            } catch(e) {}
+            // Botga yoki adminga xabar yuborish uchun telegram ma'lumotlari
+            let user = tg.initDataUnsafe?.user;
+            let username = user ? (user.username ? '@' + user.username : user.first_name) : "Foydalanuvchi";
+            
+            // Telegram orqali adminga o'tish havolasini tayyorlash
+            let text = encodeURIComponent(`Salom admin! Men to'lov qildim, chekni tekshiring. Foydalanuvchi: ${username}`);
+            document.getElementById('admin-chat-link').href = `https://t.me/VIPEGABE127?text=${text}`;
         }
 
-        function copyLink() {
+        // Bu funksiya siz admin sifatida to'lovni tasdiqlaganingizda ishlaydi (hozircha test uchun tugma qo'yilgan, keyinchalik o'zingiz boshqarasiz)
+        function simulateAdminApproval() {
+            document.getElementById('checking-modal').style.display = 'none';
+            document.getElementById('bot-link-text').innerText = selectedBotLink;
+            document.getElementById('success-modal').style.display = 'flex';
+            startSuccessTimer(120); // 2 daqiqa (120 soniya)
+        }
+
+        function startSuccessTimer(duration) {
+            let timer = duration, minutes, seconds;
+            const display = document.getElementById('success-timer');
+            clearInterval(successTimer);
+            successTimer = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                display.innerText = `Qolgan vaqt: ${minutes}:${seconds}`;
+                if (--timer < 0) {
+                    clearInterval(successTimer);
+                    display.innerText = "Vaqt tugadi!";
+                }
+            }, 1000);
+        }
+
+        function copyBotLink() {
             navigator.clipboard.writeText(selectedBotLink).then(() => {
-                alert("Bot havolasi nusxalandi!");
+                alert("Bot havolasi nusxalandi! Xaridingiz uchun rahmat!");
             });
         }
 
         function closeModal(modalId) {
             document.getElementById(modalId).style.display = 'none';
+            clearInterval(paymentTimer);
+            clearInterval(successTimer);
         }
     </script>
 </body>
