@@ -16,7 +16,6 @@
             --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
             --success-color: #22c55e;
             --danger-color: #ef4444;
-            --click-color: #0077ff;
         }
 
         * {
@@ -205,7 +204,6 @@
             font-weight: bold;
         }
 
-        /* Click tugmasi dizayni */
         .btn-click {
             display: flex;
             align-items: center;
@@ -220,9 +218,7 @@
             font-size: 14px;
             margin: 10px 0;
             box-shadow: 0 4px 15px rgba(0, 119, 255, 0.3);
-            transition: transform 0.1s;
         }
-        .btn-click:active { transform: scale(0.96); }
 
         .timer {
             font-size: 20px;
@@ -286,25 +282,25 @@
         <button class="btn-main" onclick="openShop()">Do'konga Kirish</button>
     </div>
 
-    <!-- 2. Do'kon oynasi -->
+    <!-- 2. Do'kon oynasi (Havolalar yashirildi, xavfsiz!) -->
     <div id="shop-screen">
         <div class="header-title">🛍️ Mavjud Botlar</div>
 
         <div class="product-card">
-            <div class="product-title">⚡ @BE127VIPBOT</div>
+            <div class="product-title">⚡ VIP Apple Signal Boti #1</div>
             <div class="product-desc">Apple of Fortune va boshqa o'yinlar uchun maxsus yuqori aniqlikdagi VIP signal boti.</div>
             <div class="product-footer">
                 <span class="product-price">25,000 so'm</span>
-                <button class="btn-buy" onclick="buyProduct('@BE127VIPBOT')">Sotib olish</button>
+                <button class="btn-buy" onclick="buyProduct('VIP Apple Signal Boti #1')">Sotib olish</button>
             </div>
         </div>
 
         <div class="product-card">
-            <div class="product-title">🎯 @Apple_BE127_Signal_bot</div>
+            <div class="product-title">🎯 Pro Apple Signal Boti #2</div>
             <div class="product-desc">Aniq bashorat va yuqori koeffitsientlarni ko'rsatuvchi professional signal boti.</div>
             <div class="product-footer">
                 <span class="product-price">25,000 so'm</span>
-                <button class="btn-buy" onclick="buyProduct('@Apple_BE127_Signal_bot')">Sotib olish</button>
+                <button class="btn-buy" onclick="buyProduct('Pro Apple Signal Boti #2')">Sotib olish</button>
             </div>
         </div>
     </div>
@@ -317,7 +313,6 @@
             
             <div class="card-number-box">8802801263275391</div>
 
-            <!-- Click orqali to'lash tugmasi (Karta raqami avtomatik yoziladigan yoki to'g'ridan-to'g'ri o'tkazma havolasi) -->
             <a href="https://my.click.uz/services/pay?service_id=0&merchant_id=0&card_number=8802801263275391&amount=25000" target="_blank" class="btn-click">
                 💙 Click orqali to'lash (25,000 so'm)
             </a>
@@ -382,7 +377,7 @@
             let user = tg.initDataUnsafe?.user;
             let username = user ? (user.username ? '@' + user.username : user.first_name) : "Foydalanuvchi";
             
-            let text = encodeURIComponent(`Salom admin! Men ${selectedBot} uchun to'lov qildim, chekni tekshiring. Foydalanuvchi: ${username}`);
+            let text = encodeURIComponent(`Salom admin! Men "${selectedBot}" uchun to'lov qildim, chekni tekshiring. Foydalanuvchi: ${username}`);
             document.getElementById('admin-chat-link').href = `https://t.me/VIPEGABE127?text=${text}`;
         }
 
