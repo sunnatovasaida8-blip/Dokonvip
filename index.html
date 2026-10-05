@@ -3,152 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZYNEX Store - Botlar Do'koni</title>
+    <title>ZYNEX Store - Premium Botlar</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
-            --bg-color: var(--tg-theme-bg-color, #0f172a);
-            --text-color: var(--tg-theme-text-color, #ffffff);
-            --button-color: var(--tg-theme-button-color, #3b82f6);
-            --button-text-color: var(--tg-theme-button-text-color, #ffffff);
-            --card-bg: var(--tg-theme-secondary-bg-color, #1e293b);
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-color: #6366f1;
+            --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --success-color: #22c55e;
+            --danger-color: #ef4444;
+            --click-color: #0077ff;
         }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
+            background: var(--bg-gradient);
             color: var(--text-color);
-            margin: 0;
             padding: 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
         }
+
         #welcome-screen {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 80vh;
+            height: 85vh;
             text-align: center;
+            animation: fadeIn 0.6s ease-in-out;
         }
-        .logo-icon { font-size: 64px; margin-bottom: 16px; }
-        h1 { font-size: 24px; margin-bottom: 8px; }
-        p { font-size: 14px; color: #94a3b8; margin-bottom: 24px; }
+
+        .logo-box {
+            width: 90px;
+            height: 90px;
+            background: var(--accent-gradient);
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            background: linear-gradient(to right, #f8fafc, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            line-height: 1.5;
+            max-width: 300px;
+        }
+
         .btn-main {
-            background-color: var(--button-color);
-            color: var(--button-text-color);
+            background: var(--accent-gradient);
+            color: white;
             border: none;
-            padding: 14px 28px;
-            border-radius: 12px;
+            padding: 15px 32px;
+            border-radius: 16px;
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
             width: 100%;
             max-width: 280px;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+            transition: transform 0.2s;
         }
+
+        .btn-main:active { transform: scale(0.96); }
+
         #shop-screen {
             display: none;
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             padding-bottom: 40px;
+            animation: fadeIn 0.4s ease-in-out;
         }
-        .header-title { text-align: center; font-size: 20px; font-weight: bold; margin-bottom: 20px; }
+
+        .header-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
         .product-card {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 16px;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 18px;
             margin-bottom: 16px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
         }
-        .product-title { font-size: 16px; font-weight: bold; margin-bottom: 6px; }
-        .product-desc { font-size: 13px; color: #94a3b8; margin-bottom: 12px; }
-        .product-footer { display: flex; justify-content: space-between; align-items: center; }
-        .product-price { font-size: 15px; color: #22c55e; font-weight: bold; }
+
+        .product-card:hover { transform: translateY(-2px); }
+
+        .product-title {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #38bdf8;
+        }
+
+        .product-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-size: 16px;
+            color: var(--success-color);
+            font-weight: 800;
+        }
+
         .btn-buy {
-            background-color: #22c55e;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
             color: white;
             border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
+            padding: 10px 20px;
+            border-radius: 12px;
             font-size: 13px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
         }
+
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.8);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
             justify-content: center;
             align-items: center;
             padding: 20px;
             z-index: 100;
+            animation: fadeIn 0.3s ease;
         }
+
         .modal-content {
-            background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 16px;
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px solid var(--card-border);
+            padding: 24px;
+            border-radius: 24px;
             width: 100%;
             max-width: 340px;
             text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .card-number {
-            background: #0f172a;
-            padding: 10px;
-            border-radius: 8px;
+
+        .modal-content h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .card-number-box {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 12px;
+            border-radius: 14px;
             font-family: monospace;
             font-size: 16px;
             color: #38bdf8;
             margin: 10px 0;
             letter-spacing: 1px;
-        }
-        .timer {
-            font-size: 18px;
-            color: #ef4444;
             font-weight: bold;
+        }
+
+        /* Click tugmasi dizayni */
+        .btn-click {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #0077ff 0%, #0055cc 100%);
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            margin: 10px 0;
+            box-shadow: 0 4px 15px rgba(0, 119, 255, 0.3);
+            transition: transform 0.1s;
+        }
+        .btn-click:active { transform: scale(0.96); }
+
+        .timer {
+            font-size: 20px;
+            color: var(--danger-color);
+            font-weight: 800;
             margin: 10px 0;
         }
-        .btn-close {
-            background: #ef4444;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            margin-top: 10px;
-            cursor: pointer;
-            width: 100%;
-        }
+
         .btn-confirm {
-            background: #22c55e;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
             color: white;
             border: none;
-            padding: 10px;
-            border-radius: 8px;
+            padding: 12px;
+            border-radius: 14px;
             margin-top: 8px;
             cursor: pointer;
             width: 100%;
-            font-weight: bold;
-        }
-        .link-box {
-            background: #0f172a;
-            padding: 12px;
-            border-radius: 8px;
-            margin: 10px 0;
-            word-break: break-all;
-            color: #22c55e;
-            font-weight: bold;
+            font-weight: 700;
             font-size: 14px;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
         }
+
+        .btn-close {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            border: 1px solid var(--card-border);
+            padding: 10px;
+            border-radius: 12px;
+            margin-top: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .admin-link-btn {
+            display: block;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 13px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            margin: 15px 0 10px 0;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes scaleUp { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
     </style>
 </head>
 <body>
 
     <!-- 1. Kirish ekrani -->
     <div id="welcome-screen">
-        <div class="logo-icon">🤖</div>
-        <h1>Apple of Fortune Botlar</h1>
-        <p>Eng yaxshi signal va dastur botlarini xarid qiling!</p>
+        <div class="logo-box">⚡</div>
+        <h1>ZYNEX Store</h1>
+        <p>Eng zo'r va Ishonchli Signal Botlari olami</p>
         <button class="btn-main" onclick="openShop()">Do'konga Kirish</button>
     </div>
 
@@ -158,31 +292,39 @@
 
         <div class="product-card">
             <div class="product-title">⚡ @BE127VIPBOT</div>
-            <div class="product-desc">Apple of Fortune va boshqa o'yinlar uchun maxsus VIP signal boti.</div>
+            <div class="product-desc">Apple of Fortune va boshqa o'yinlar uchun maxsus yuqori aniqlikdagi VIP signal boti.</div>
             <div class="product-footer">
                 <span class="product-price">25,000 so'm</span>
-                <button class="btn-buy" onclick="buyProduct('@BE127VIPBOT', 'https://t.me/BE127VIPBOT')">Sotib olish</button>
+                <button class="btn-buy" onclick="buyProduct('@BE127VIPBOT')">Sotib olish</button>
             </div>
         </div>
 
         <div class="product-card">
             <div class="product-title">🎯 @Apple_BE127_Signal_bot</div>
-            <div class="product-desc">Aniq bashorat va koeffitsientlarni ko'rsatuvchi signal boti.</div>
+            <div class="product-desc">Aniq bashorat va yuqori koeffitsientlarni ko'rsatuvchi professional signal boti.</div>
             <div class="product-footer">
                 <span class="product-price">25,000 so'm</span>
-                <button class="btn-buy" onclick="buyProduct('@Apple_BE127_Signal_bot', 'https://t.me/Apple_BE127_Signal_bot')">Sotib olish</button>
+                <button class="btn-buy" onclick="buyProduct('@Apple_BE127_Signal_bot')">Sotib olish</button>
             </div>
         </div>
     </div>
 
-    <!-- 3. To'lov va 50 soniya taymer oynasi -->
+    <!-- 3. To'lov, Click va 50 soniya taymer oynasi -->
     <div id="payment-modal" class="modal">
         <div class="modal-content">
             <h3>💳 To'lov qilish</h3>
-            <p style="font-size: 13px; margin: 6px 0;">Karta raqamiga <b style="color: #22c55e;">25,000 so'm</b> o'tkazing:</p>
-            <div class="card-number">8802801263275391</div>
+            <p style="font-size: 12px; color: var(--text-muted);">Karta raqamiga yoki Click orqali <b style="color: var(--success-color);">25,000 so'm</b> o'tkazing:</p>
+            
+            <div class="card-number-box">8802801263275391</div>
+
+            <!-- Click orqali to'lash tugmasi (Karta raqami avtomatik yoziladigan yoki to'g'ridan-to'g'ri o'tkazma havolasi) -->
+            <a href="https://my.click.uz/services/pay?service_id=0&merchant_id=0&card_number=8802801263275391&amount=25000" target="_blank" class="btn-click">
+                💙 Click orqali to'lash (25,000 so'm)
+            </a>
+
             <div class="timer" id="timer-display">00:50</div>
-            <p style="font-size: 12px; color: #94a3b8;">Belgilangan vaqt ichida to'lov qilib, chekni adminga yuboring.</p>
+            <p style="font-size: 11px; color: var(--text-muted);">Vaqt tugaguncha to'lovni qilib, chekni yuboring.</p>
+            
             <button class="btn-confirm" onclick="submitCheck()">To'lov qildim (Chekni yuborish)</button>
             <button class="btn-close" onclick="closeModal('payment-modal')">Bekor qilish</button>
         </div>
@@ -192,22 +334,9 @@
     <div id="checking-modal" class="modal">
         <div class="modal-content">
             <h3>⏳ Tekshirilmoqda</h3>
-            <p style="font-size: 14px; margin: 15px 0;">Chekingiz adminga yuborildi. Pul tushgani tekshirilmoqda, iltimos kuting...</p>
-            <a id="admin-chat-link" href="https://t.me/VIPEGABE127" target="_blank" style="display: block; background: #3b82f6; color: white; padding: 10px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-bottom: 10px;">💬 Admin bilan bog'lanish (@VIPEGABE127)</a>
-            <button class="btn-close" onclick="simulateAdminApproval()" style="background: #22c55e;">✅ Admin tasdiqlash (Test uchun)</button>
-        </div>
-    </div>
-
-    <!-- 5. Muvaffaqiyatli xarid va 2 daqiqa taymer oynasi -->
-    <div id="success-modal" class="modal">
-        <div class="modal-content">
-            <h3>🎉 To'lov tasdiqlandi!</h3>
-            <p style="font-size: 13px;">Sotib olgan bot havolangiz:</p>
-            <div class="link-box" id="bot-link-text">https://t.me/...</div>
-            <div class="timer" id="success-timer" style="font-size: 15px; color: #38bdf8;">Qolgan vaqt: 02:00</div>
-            <button class="btn-main" style="width:100%; font-size: 14px; padding: 10px; margin-top: 5px;" onclick="copyBotLink()">📋 Havolani Nusxalash</button>
-            <p style="font-size: 12px; color: #22c55e; margin-top: 15px; font-weight: bold;">Xaridingiz uchun rahmat, biz bilan qoling! ❤️</p>
-            <button class="btn-close" onclick="closeModal('success-modal')" style="background:#334155; margin-top:10px;">Yopish</button>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 8px;">Chekingiz adminga yuborildi. Pul tushgani tekshirilmoqda, iltimos kuting...</p>
+            <a id="admin-chat-link" href="https://t.me/VIPEGABE127" target="_blank" class="admin-link-btn">💬 Admin bilan bog'lanish</a>
+            <button class="btn-close" onclick="closeModal('checking-modal')">Oynani yopish</button>
         </div>
     </div>
 
@@ -215,17 +344,16 @@
         const tg = window.Telegram.WebApp;
         tg.expand();
 
-        let selectedBotLink = "";
+        let selectedBot = "";
         let paymentTimer = null;
-        let successTimer = null;
 
         function openShop() {
             document.getElementById('welcome-screen').style.display = 'none';
             document.getElementById('shop-screen').style.display = 'block';
         }
 
-        function buyProduct(botName, botLink) {
-            selectedBotLink = botLink;
+        function buyProduct(botName) {
+            selectedBot = botName;
             document.getElementById('payment-modal').style.display = 'flex';
             startPaymentTimer(50);
         }
@@ -251,50 +379,16 @@
             document.getElementById('payment-modal').style.display = 'none';
             document.getElementById('checking-modal').style.display = 'flex';
             
-            // Botga yoki adminga xabar yuborish uchun telegram ma'lumotlari
             let user = tg.initDataUnsafe?.user;
             let username = user ? (user.username ? '@' + user.username : user.first_name) : "Foydalanuvchi";
             
-            // Telegram orqali adminga o'tish havolasini tayyorlash
-            let text = encodeURIComponent(`Salom admin! Men to'lov qildim, chekni tekshiring. Foydalanuvchi: ${username}`);
+            let text = encodeURIComponent(`Salom admin! Men ${selectedBot} uchun to'lov qildim, chekni tekshiring. Foydalanuvchi: ${username}`);
             document.getElementById('admin-chat-link').href = `https://t.me/VIPEGABE127?text=${text}`;
-        }
-
-        // Bu funksiya siz admin sifatida to'lovni tasdiqlaganingizda ishlaydi (hozircha test uchun tugma qo'yilgan, keyinchalik o'zingiz boshqarasiz)
-        function simulateAdminApproval() {
-            document.getElementById('checking-modal').style.display = 'none';
-            document.getElementById('bot-link-text').innerText = selectedBotLink;
-            document.getElementById('success-modal').style.display = 'flex';
-            startSuccessTimer(120); // 2 daqiqa (120 soniya)
-        }
-
-        function startSuccessTimer(duration) {
-            let timer = duration, minutes, seconds;
-            const display = document.getElementById('success-timer');
-            clearInterval(successTimer);
-            successTimer = setInterval(function () {
-                minutes = parseInt(timer / 60, 10);
-                seconds = parseInt(timer % 60, 10);
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
-                display.innerText = `Qolgan vaqt: ${minutes}:${seconds}`;
-                if (--timer < 0) {
-                    clearInterval(successTimer);
-                    display.innerText = "Vaqt tugadi!";
-                }
-            }, 1000);
-        }
-
-        function copyBotLink() {
-            navigator.clipboard.writeText(selectedBotLink).then(() => {
-                alert("Bot havolasi nusxalandi! Xaridingiz uchun rahmat!");
-            });
         }
 
         function closeModal(modalId) {
             document.getElementById(modalId).style.display = 'none';
             clearInterval(paymentTimer);
-            clearInterval(successTimer);
         }
     </script>
 </body>
